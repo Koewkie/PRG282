@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvStudents = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtCourse = new System.Windows.Forms.TextBox();
             this.txtAge = new System.Windows.Forms.TextBox();
@@ -41,23 +41,23 @@
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lblAvg = new System.Windows.Forms.Label();
+            this.lblTotalStdn = new System.Windows.Forms.Label();
             this.btnSummary = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStudents)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // dgvStudents
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 12);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(444, 260);
-            this.dataGridView1.TabIndex = 1;
+            this.dgvStudents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvStudents.Location = new System.Drawing.Point(12, 12);
+            this.dgvStudents.Name = "dgvStudents";
+            this.dgvStudents.Size = new System.Drawing.Size(444, 260);
+            this.dgvStudents.TabIndex = 1;
             // 
             // groupBox1
             // 
@@ -150,6 +150,7 @@
             this.btnAdd.TabIndex = 1;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnUpdate
             // 
@@ -169,23 +170,23 @@
             this.btnDelete.Text = "DELETE";
             this.btnDelete.UseVisualStyleBackColor = true;
             // 
-            // label6
+            // lblAvg
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(540, 110);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(129, 13);
-            this.label6.TabIndex = 8;
-            this.label6.Text = "Average Age of Students:";
+            this.lblAvg.AutoSize = true;
+            this.lblAvg.Location = new System.Drawing.Point(540, 110);
+            this.lblAvg.Name = "lblAvg";
+            this.lblAvg.Size = new System.Drawing.Size(129, 13);
+            this.lblAvg.TabIndex = 8;
+            this.lblAvg.Text = "Average Age of Students:";
             // 
-            // label5
+            // lblTotalStdn
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(540, 87);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(134, 13);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "Total Number of Students: ";
+            this.lblTotalStdn.AutoSize = true;
+            this.lblTotalStdn.Location = new System.Drawing.Point(540, 87);
+            this.lblTotalStdn.Name = "lblTotalStdn";
+            this.lblTotalStdn.Size = new System.Drawing.Size(134, 13);
+            this.lblTotalStdn.TabIndex = 7;
+            this.lblTotalStdn.Text = "Total Number of Students: ";
             // 
             // btnSummary
             // 
@@ -230,14 +231,15 @@
             this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.btnDelete);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
+            this.Controls.Add(this.lblAvg);
+            this.Controls.Add(this.lblTotalStdn);
             this.Controls.Add(this.btnSummary);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dgvStudents);
             this.Name = "frmMainMenu";
             this.Text = "Student Record Manager";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Load += new System.EventHandler(this.frmMainMenu_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStudents)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -247,7 +249,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvStudents;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox txtCourse;
         private System.Windows.Forms.TextBox txtAge;
@@ -260,8 +262,8 @@
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblAvg;
+        private System.Windows.Forms.Label lblTotalStdn;
         private System.Windows.Forms.Button btnSummary;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtSearch;
