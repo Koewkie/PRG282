@@ -11,7 +11,7 @@ namespace PRG282_Project
         private int ID, Age;
         private string Name, Course;
 
-        Student(int iD, int age, string name, string course)
+        public Student(int iD, int age, string name, string course)
         {
             ID1 = iD;
             Age1 = age;
