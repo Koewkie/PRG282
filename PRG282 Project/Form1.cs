@@ -20,7 +20,8 @@ namespace PRG282_Project
         private DataTable dt = new DataTable();
         List<Student> students = new List<Student>();
 
-        //Filehandler fh = new Filehandler();               //Implement this when Filehandler is complete
+        FileHandler fh = new FileHandler();
+        DataHandler dh = new DataHandler();
 
         private void frmMainMenu_Load(object sender, EventArgs e)
         {
@@ -53,17 +54,76 @@ namespace PRG282_Project
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            string name = txtName.Text;
-            string course = txtCourse.Text;
-            int age = int.Parse(txtAge.Text);
-            int id = int.Parse(txtID.Text);
+            students = dh.AddStudent(int.Parse(txtID.Text), int.Parse(txtAge.Text), txtName.Text, txtCourse.Text, students);
 
-            Student tempstudent = new Student(id, age, name, course);
-            students.Add(tempstudent);
+            dt.Rows.Add(int.Parse(txtID.Text), txtName.Text, int.Parse(txtAge.Text), txtCourse.Text);
+        }
 
-            dt.Rows.Add(id, name, age, course);
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            txtCourse.Text = "";
+            txtAge.Text = "";
+            txtID.Text = "";
+            txtName.Text = "";
+            txtSearch.Text = "";
+        }
 
-            //fh.Add(students);
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            students = dh.UpdateStudent(int.Parse(txtID.Text), int.Parse(txtAge.Text), txtName.Text, txtCourse.Text, students);
+
+            for (int i = 0; i < dgvStudents.Rows.Count - 1; i++)
+            {
+                if (dgvStudents.Rows[i].Cells[0].Value.ToString() == txtID.Text)
+                {
+                    dgvStudents.Rows[i].Cells[1].Value = txtName.Text;
+                    dgvStudents.Rows[i].Cells[2].Value = txtAge.Text;
+                    dgvStudents.Rows[i].Cells[3].Value = txtCourse.Text;
+                    break;
+                }
+            }
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            bool found = false;
+            int searchID = int.Parse(txtSearch.Text);
+
+            foreach(Student stdn in students)
+            {
+                if (stdn.ID1 == searchID)
+                {
+                    txtID.Text = stdn.ID1.ToString();
+                    txtName.Text = stdn.Name1.ToString();
+                    txtAge.Text = stdn.Age1.ToString();
+                    txtCourse.Text = stdn.Course1.ToString();
+                    found = true;
+                    break;
+                }
+            }
+            if (!found)
+            {
+                MessageBox.Show($"Student with ID: '{searchID}' not found!");
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            dh.DeleteStudent(int.Parse(txtID.Text), students);
+
+            for (int i = 0; i < dgvStudents.Rows.Count - 1; i++)
+            {
+                if (dgvStudents.Rows[i].Cells[0].Value.ToString() == txtID.Text)
+                {
+                    dgvStudents.Rows.RemoveAt(i);
+                    break;
+                }
+            }
+        }
+
+        private void btnSummary_Click(object sender, EventArgs e)
+        {
+            fh.GenerateSummary(students);
         }
     }
 }
