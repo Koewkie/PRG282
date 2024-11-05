@@ -54,7 +54,7 @@ namespace PRG282_Project
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            students = dh.AddStudent(int.Parse(txtID.Text), int.Parse(txtAge.Text), txtName.Text, txtCourse.Text, students);
+            students = dh.AddStudent(int.Parse(txtID.Text), int.Parse(txtAge.Text), txtName.Text, txtCourse.Text, students, fh);
 
             dt.Rows.Add(int.Parse(txtID.Text), txtName.Text, int.Parse(txtAge.Text), txtCourse.Text);
         }
@@ -70,7 +70,7 @@ namespace PRG282_Project
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            students = dh.UpdateStudent(int.Parse(txtID.Text), int.Parse(txtAge.Text), txtName.Text, txtCourse.Text, students);
+            students = dh.UpdateStudent(int.Parse(txtID.Text), int.Parse(txtAge.Text), txtName.Text, txtCourse.Text, students, fh);
 
             for (int i = 0; i < dgvStudents.Rows.Count - 1; i++)
             {
@@ -109,7 +109,7 @@ namespace PRG282_Project
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            dh.DeleteStudent(int.Parse(txtID.Text), students);
+            dh.DeleteStudent(int.Parse(txtID.Text), students, fh);
 
             for (int i = 0; i < dgvStudents.Rows.Count - 1; i++)
             {

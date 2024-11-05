@@ -10,19 +10,19 @@ namespace PRG282_Project
     {
         public DataHandler() { }
 
-        public List<Student> AddStudent(int iD, int age, string name, string course, List<Student> stdnList)
+        public List<Student> AddStudent(int iD, int age, string name, string course, List<Student> stdnList, FileHandler fileHandler)
         {
             //-----------IMPLEMENT-------------------
             return new List<Student>(); 
         }
 
-        public List<Student> UpdateStudent(int iD, int age, string name, string course, List<Student> stdnList)
+        public List<Student> UpdateStudent(int iD, int age, string name, string course, List<Student> stdnList, FileHandler fileHandler)
         {
             //-----------IMPLEMENT-------------------
             return new List<Student>(); 
         }
 
-        public List<Student> DeleteStudent(int iD, List<Student> stdnList)
+        public List<Student> DeleteStudent(int iD, List<Student> stdnList, FileHandler fileHandler)
         {
             //-----------IMPLEMENT-------------------
             return new List<Student>();
