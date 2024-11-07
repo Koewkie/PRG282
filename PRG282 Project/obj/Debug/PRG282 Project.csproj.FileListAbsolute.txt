@@ -8,3 +8,13 @@ C:\Users\Koekie\Desktop\Belgium 2024\PRG282\Project\PRG282\PRG282 Project\obj\De
 C:\Users\Koekie\Desktop\Belgium 2024\PRG282\Project\PRG282\PRG282 Project\obj\Debug\PRG282 Project.csproj.CoreCompileInputs.cache
 C:\Users\Koekie\Desktop\Belgium 2024\PRG282\Project\PRG282\PRG282 Project\obj\Debug\PRG282 Project.exe
 C:\Users\Koekie\Desktop\Belgium 2024\PRG282\Project\PRG282\PRG282 Project\obj\Debug\PRG282 Project.pdb
+D:\Belguim\2nd year (BIT)\PRG272\Project\PRG282 Project\bin\Debug\PRG282 Project.exe.config
+D:\Belguim\2nd year (BIT)\PRG272\Project\PRG282 Project\bin\Debug\PRG282 Project.exe
+D:\Belguim\2nd year (BIT)\PRG272\Project\PRG282 Project\bin\Debug\PRG282 Project.pdb
+D:\Belguim\2nd year (BIT)\PRG272\Project\PRG282 Project\obj\Debug\PRG282 Project.csproj.AssemblyReference.cache
+D:\Belguim\2nd year (BIT)\PRG272\Project\PRG282 Project\obj\Debug\PRG282_Project.frmMainMenu.resources
+D:\Belguim\2nd year (BIT)\PRG272\Project\PRG282 Project\obj\Debug\PRG282_Project.Properties.Resources.resources
+D:\Belguim\2nd year (BIT)\PRG272\Project\PRG282 Project\obj\Debug\PRG282 Project.csproj.GenerateResource.cache
+D:\Belguim\2nd year (BIT)\PRG272\Project\PRG282 Project\obj\Debug\PRG282 Project.csproj.CoreCompileInputs.cache
+D:\Belguim\2nd year (BIT)\PRG272\Project\PRG282 Project\obj\Debug\PRG282 Project.exe
+D:\Belguim\2nd year (BIT)\PRG272\Project\PRG282 Project\obj\Debug\PRG282 Project.pdb
