@@ -25,28 +25,16 @@ namespace PRG282_Project
 
         private void frmMainMenu_Load(object sender, EventArgs e)
         {
-            //students = fh.read();                         //Implement this when Filehandler is complete
-
-
-            //-----------------------------Temporary student list for testing-----------------------------
-            Student student1 = new Student(1, 20, "Stdn1", "Course1");
-            Student student2 = new Student(2, 21, "Stdn2", "Course2");
-            Student student3 = new Student(3, 22, "Stdn3", "Course3");
-
-            students.Add(student1);
-            students.Add(student2);
-            students.Add(student3);
-            //--------------------------------------------------------------------------------------------
-
+            students = fh.Read();                         //Implement this when Filehandler is complete
 
             dt.Columns.Add("Student ID", typeof(int));
-            dt.Columns.Add("Name", typeof(string));
             dt.Columns.Add("Age", typeof(int));
+            dt.Columns.Add("Name", typeof(string));
             dt.Columns.Add("Course", typeof(string));
 
             foreach(Student stdn in students)
             {
-                dt.Rows.Add(stdn.ID1, stdn.Name1, stdn.Age1, stdn.Course1);
+                dt.Rows.Add(stdn.ID1, stdn.Age1, stdn.Name1, stdn.Course1);
             }
 
             dgvStudents.DataSource = dt;
@@ -171,7 +159,13 @@ namespace PRG282_Project
 
         private void btnSummary_Click(object sender, EventArgs e)
         {
-            fh.GenerateSummary(students);
+            // Reset label to their default property settings
+            lblTotalStdn.Text = "Total Number of Students: ";
+            lblAvg.Text = "Average age of Students: ";
+
+            // Call Display and file save
+            dh.DisplaySummary(students, lblTotalStdn, lblAvg);
+            fh.GenerateSummary(students, dh);
         }
     }
 }
