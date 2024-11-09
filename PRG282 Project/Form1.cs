@@ -7,25 +7,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace PRG282_Project
 {
     public partial class frmMainMenu : Form
     {
-        public frmMainMenu()
-        {
-            InitializeComponent();
-        }
+        private bool success = false;
 
         private DataTable dt = new DataTable();
+        public DataTable Dt { get => dt; set => dt = value; }
+
         List<Student> students = new List<Student>();
 
         FileHandler fh = new FileHandler();
-        DataHandler dh = new DataHandler();
+        DataHandler dh;
+
+        public frmMainMenu()
+        {
+            dh = new DataHandler(this);
+            InitializeComponent();
+        }
 
         private void frmMainMenu_Load(object sender, EventArgs e)
         {
-            students = fh.Read();                         //Implement this when Filehandler is complete
+            students = fh.Read();                         
 
             dt.Columns.Add("Student ID", typeof(int));
             dt.Columns.Add("Age", typeof(int));
@@ -51,82 +57,24 @@ namespace PRG282_Project
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            try
-            {
-                students = dh.AddStudent(int.Parse(txtID.Text), int.Parse(txtAge.Text), txtName.Text, txtCourse.Text, students, fh);
-            }
-            catch (StudentException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            catch
-            {
-                MessageBox.Show("Please enter all 'Add/Update' values and ensure they are correct");
-            }
-            
-            dt.Rows.Add(int.Parse(txtID.Text), int.Parse(txtAge.Text), txtName.Text, txtCourse.Text);
+            students = dh.AddStudent(txtID.Text, txtAge.Text, txtName.Text, txtCourse.Text, students, fh);
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            try
-            {
-                bool found = false;
-                int ID = int.Parse(txtID.Text);
-                int Age = int.Parse(txtAge.Text);
-
-                for (int i = 0; i < dgvStudents.Rows.Count - 1; i++)
-                {
-                    if (dgvStudents.Rows[i].Cells[0].Value.ToString() == txtID.Text)
-                    {
-                        //dgvStudents.Rows[i].Cells[1].Value = txtName.Text;
-                        // dgvStudents.Rows[i].Cells[2].Value = txtAge.Text;
-                        dgvStudents.Rows[i].Cells[1].Value = txtAge.Text;
-                        dgvStudents.Rows[i].Cells[2].Value = txtName.Text;
-                        dgvStudents.Rows[i].Cells[3].Value = txtCourse.Text;
-                        students = dh.UpdateStudent(ID, Age, txtName.Text, txtCourse.Text, students, fh);                       
-                        found = true;
-                        break;
-                    }
-                }
-                if (!found)
-                {
-                    MessageBox.Show($"Student with ID: '{txtID.Text}' not found!");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Please enter all 'Add/Update' values and ensure they are correct");
-            }
+            students = dh.UpdateStudent(txtID.Text, txtAge.Text, txtName.Text, txtCourse.Text, students, fh, dgvStudents);
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            bool found = false;
-            try
-            {
-                int searchID = int.Parse(txtSearch.Text);
+            List<String> values = dh.Search(students, txtSearch.Text);
 
-                foreach (Student stdn in students)
-                {
-                    if (stdn.ID1 == searchID)
-                    {
-                        txtID.Text = stdn.ID1.ToString();
-                        txtName.Text = stdn.Name1.ToString();
-                        txtAge.Text = stdn.Age1.ToString();
-                        txtCourse.Text = stdn.Course1.ToString();
-                        found = true;
-                        break;
-                    }
-                }
-                if (!found)
-                {
-                    MessageBox.Show($"Student with ID: '{searchID}' not found!");
-                }
-            }
-            catch
+            if (values != null)
             {
-                MessageBox.Show("Please enter a valid student ID");
+                txtID.Text = values[0];
+                txtName.Text = values[1];
+                txtAge.Text = values[2];
+                txtCourse.Text = values[3];
             }
         }
 
