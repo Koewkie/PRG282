@@ -2,48 +2,130 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 using System.Xml.Linq;
 
 namespace PRG282_Project
 {
     internal class DataHandler
     {
+        private frmMainMenu menuForm;
+
         public DataHandler() { }
 
-        public List<Student> AddStudent(int iD, int age, string name, string course, List<Student> stdnList, FileHandler fileHandler)
+        public DataHandler(frmMainMenu frm) { menuForm = frm; }
+
+        public List<Student> AddStudent(string iD, string age, string name, string course, List<Student> stdnList, FileHandler fileHandler)
         {
-            Student tempStdn = stdnList.FirstOrDefault(stdn => stdn.ID1 == iD);
-            if (tempStdn == null)
+            try
             {
-                Student newStudent = new Student(iD, age, name, course);
-                stdnList.Add(newStudent);
-                fileHandler.Write(stdnList);
+                int stdnID = int.Parse(iD);
+                int stdnAge = int.Parse(age);
+
+                Student tempStdn = stdnList.FirstOrDefault(stdn => stdn.ID1 == stdnID); //find student with matching id or return null
+                if (tempStdn == null)   //if no student with id exists => create and add new student
+                {
+                    Student newStudent = new Student(stdnID, stdnAge, name, course);    //create
+                    stdnList.Add(newStudent);                                           //add
+                    fileHandler.Write(stdnList);                                        //write
+                    menuForm.Dt.Rows.Add(stdnID, stdnAge, name, course);                //update grid
+                    return stdnList;
+                }
+                else
+                {
+                    MessageBox.Show($"Student with ID: '{stdnID}' aready exists!");
+                }
             }
-            else
+            catch
             {
-                MessageBox.Show($"Student with ID: '{iD}' aready exists!");
+                MessageBox.Show("Please enter all 'Add/Update' values and ensure they are correct");
             }
 
             return stdnList;
         }
 
-        public List<Student> UpdateStudent(int iD, int age, string name, string course, List<Student> stdnList, FileHandler fileHandler)
+        public List<Student> UpdateStudent(string iD, string age, string name, string course, List<Student> stdnList, FileHandler fileHandler, DataGridView dgv)
         {
-            Student studentToUpdate = stdnList.FirstOrDefault(stdn => stdn.ID1 == iD);
-
-            if (studentToUpdate != null)
+            try
             {
-                studentToUpdate.Age1 = age;
-                studentToUpdate.Name1 = name;
-                studentToUpdate.Course1 = course;
+                int stdnID = int.Parse(iD);
+                int stdnAge = int.Parse(age);
+                bool found = false;
 
-                fileHandler.Write(stdnList);
+                Student studentToUpdate = stdnList.FirstOrDefault(stdn => stdn.ID1 == stdnID);  //find student with matching id or return null
+
+                if (studentToUpdate != null)    //if student exist, update values
+                {
+                    studentToUpdate.Age1 = stdnAge;
+                    studentToUpdate.Name1 = name;
+                    studentToUpdate.Course1 = course;
+
+                    fileHandler.Write(stdnList);    //write file
+
+                    for (int i = 0; i < dgv.Rows.Count - 1; i++)        //search student in datagrid
+                    {
+                        if (dgv.Rows[i].Cells[0].Value.ToString() == iD)    //if match, update values in grid
+                        {
+                            dgv.Rows[i].Cells[1].Value = age;
+                            dgv.Rows[i].Cells[2].Value = name;
+                            dgv.Rows[i].Cells[3].Value = course;
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found)
+                    {
+                        MessageBox.Show($"Student with ID: '{iD}' not found!");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show($"Student with ID: '{iD}' not found!");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Please enter all 'Add/Update' values and ensure they are correct");
             }
 
             return stdnList; 
+        }
+
+        public List<String> Search(List<Student> stdnList, string id)
+        {
+            bool found = false;
+            List<String> values = new List<string>();
+            try
+            {
+                int searchID = int.Parse(id);
+
+                foreach (Student stdn in stdnList)  //search for student
+                {
+                    if (stdn.ID1 == searchID) //if found, add details to list and return
+                    {
+                        values.Add(stdn.ID1.ToString());
+                        values.Add(stdn.Name1.ToString());
+                        values.Add(stdn.Age1.ToString());
+                        values.Add(stdn.Course1.ToString());
+                        return values;
+                    }
+                }
+                if (!found)
+                {
+                    MessageBox.Show($"Student with ID: '{searchID}' not found!");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Please enter a valid student ID");
+                return null;
+            }
+
+            return null;
         }
 
         public List<Student> DeleteStudent(int iD, List<Student> stdnList, FileHandler fileHandler)
