@@ -64,7 +64,7 @@ namespace PRG282_Project
                 MessageBox.Show("Please enter all 'Add/Update' values and ensure they are correct");
             }
             
-            dt.Rows.Add(int.Parse(txtID.Text), txtName.Text, int.Parse(txtAge.Text), txtCourse.Text);
+            dt.Rows.Add(int.Parse(txtID.Text), int.Parse(txtAge.Text), txtName.Text, txtCourse.Text);
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -79,11 +79,12 @@ namespace PRG282_Project
                 {
                     if (dgvStudents.Rows[i].Cells[0].Value.ToString() == txtID.Text)
                     {
-                        dgvStudents.Rows[i].Cells[1].Value = txtName.Text;
-                        dgvStudents.Rows[i].Cells[2].Value = txtAge.Text;
+                        //dgvStudents.Rows[i].Cells[1].Value = txtName.Text;
+                        // dgvStudents.Rows[i].Cells[2].Value = txtAge.Text;
+                        dgvStudents.Rows[i].Cells[1].Value = txtAge.Text;
+                        dgvStudents.Rows[i].Cells[2].Value = txtName.Text;
                         dgvStudents.Rows[i].Cells[3].Value = txtCourse.Text;
-                        students = 
-                            dh.UpdateStudent(ID, Age, txtName.Text, txtCourse.Text, students, fh);
+                        students = dh.UpdateStudent(ID, Age, txtName.Text, txtCourse.Text, students, fh);                       
                         found = true;
                         break;
                     }

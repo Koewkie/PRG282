@@ -4,6 +4,8 @@ using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace PRG282_Project
 {
@@ -13,14 +15,35 @@ namespace PRG282_Project
 
         public List<Student> AddStudent(int iD, int age, string name, string course, List<Student> stdnList, FileHandler fileHandler)
         {
-            //-----------IMPLEMENT-------------------
-            return new List<Student>(); 
+            Student tempStdn = stdnList.FirstOrDefault(stdn => stdn.ID1 == iD);
+            if (tempStdn == null)
+            {
+                Student newStudent = new Student(iD, age, name, course);
+                stdnList.Add(newStudent);
+                fileHandler.Write(stdnList);
+            }
+            else
+            {
+                MessageBox.Show($"Student with ID: '{iD}' aready exists!");
+            }
+
+            return stdnList;
         }
 
         public List<Student> UpdateStudent(int iD, int age, string name, string course, List<Student> stdnList, FileHandler fileHandler)
         {
-            //-----------IMPLEMENT-------------------
-            return new List<Student>(); 
+            Student studentToUpdate = stdnList.FirstOrDefault(stdn => stdn.ID1 == iD);
+
+            if (studentToUpdate != null)
+            {
+                studentToUpdate.Age1 = age;
+                studentToUpdate.Name1 = name;
+                studentToUpdate.Course1 = course;
+
+                fileHandler.Write(stdnList);
+            }
+
+            return stdnList; 
         }
 
         public List<Student> DeleteStudent(int iD, List<Student> stdnList, FileHandler fileHandler)
