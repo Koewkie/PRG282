@@ -27,6 +27,7 @@ namespace PRG282_Project
         {
             dh = new DataHandler(this);
             InitializeComponent();
+            dgvStudents.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
         private void frmMainMenu_Load(object sender, EventArgs e)
@@ -92,6 +93,19 @@ namespace PRG282_Project
             // Call Display and file save
             dh.DisplaySummary(students, lblTotalStdn, lblAvg);
             fh.GenerateSummary(students, dh);
+        }
+
+        private void dgvStudents_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)    //if row index is valid
+            {
+                DataGridViewRow row = dgvStudents.Rows[e.RowIndex];     //get row
+
+                txtID.Text = row.Cells[0].Value.ToString();     //set textboxes
+                txtAge.Text = row.Cells[1].Value.ToString();
+                txtName.Text = row.Cells[2].Value.ToString();
+                txtCourse.Text = row.Cells[3].Value.ToString();
+            }
         }
     }
 }

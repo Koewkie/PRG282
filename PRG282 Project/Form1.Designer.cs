@@ -30,6 +30,7 @@
         {
             this.dgvStudents = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnClear = new System.Windows.Forms.Button();
             this.txtCourse = new System.Windows.Forms.TextBox();
             this.txtAge = new System.Windows.Forms.TextBox();
             this.txtName = new System.Windows.Forms.TextBox();
@@ -47,7 +48,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
-            this.btnClear = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStudents)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -59,6 +59,7 @@
             this.dgvStudents.Name = "dgvStudents";
             this.dgvStudents.Size = new System.Drawing.Size(444, 260);
             this.dgvStudents.TabIndex = 1;
+            this.dgvStudents.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStudents_CellClick);
             // 
             // groupBox1
             // 
@@ -79,6 +80,16 @@
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Add/Update";
+            // 
+            // btnClear
+            // 
+            this.btnClear.Location = new System.Drawing.Point(36, 140);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(111, 35);
+            this.btnClear.TabIndex = 10;
+            this.btnClear.Text = "Clear";
+            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // txtCourse
             // 
@@ -227,16 +238,6 @@
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
-            // 
-            // btnClear
-            // 
-            this.btnClear.Location = new System.Drawing.Point(36, 140);
-            this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(111, 35);
-            this.btnClear.TabIndex = 10;
-            this.btnClear.Text = "Clear";
-            this.btnClear.UseVisualStyleBackColor = true;
-            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // frmMainMenu
             // 
