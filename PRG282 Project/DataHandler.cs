@@ -73,16 +73,13 @@ namespace PRG282_Project
                             dgv.Rows[i].Cells[1].Value = age;
                             dgv.Rows[i].Cells[2].Value = name;
                             dgv.Rows[i].Cells[3].Value = course;
+                            MessageBox.Show("Update Successful!");
                             found = true;
                             break;
                         }
-                    }
-                    if (!found)
-                    {
-                        MessageBox.Show($"Student with ID: '{iD}' not found!");
-                    }
+                    }   
                 }
-                else
+                if (!found)
                 {
                     MessageBox.Show($"Student with ID: '{iD}' not found!");
                 }
@@ -111,6 +108,7 @@ namespace PRG282_Project
                         values.Add(stdn.Name1.ToString());
                         values.Add(stdn.Age1.ToString());
                         values.Add(stdn.Course1.ToString());
+                        MessageBox.Show("Add Successful!");
                         return values;
                     }
                 }
@@ -128,9 +126,8 @@ namespace PRG282_Project
             return null;
         }
 
-        public List<Student> DeleteStudent(string iD, List<Student> stdnList, FileHandler fileHandler)
+        public List<Student> DeleteStudent(string iD, List<Student> stdnList, FileHandler fileHandler, DataGridView dgv)
         {
-            //-----------IMPLEMENT-------------------
             try
             {
                 int stdnID = int.Parse(iD);
@@ -141,19 +138,23 @@ namespace PRG282_Project
 
                 if (studentToDelete != null)
                 {
-                    stdnList.Remove(studentToDelete);
-                    fileHandler.Write(stdnList);
+                    stdnList.Remove(studentToDelete);               //delete from list
+                    fileHandler.Write(stdnList);                    //write to file
 
-
-
-                    if (!found)
+                    for (int i = 0; i < dgv.Rows.Count - 1; i++)    //search id in datagrid
                     {
-                        MessageBox.Show($"Student with ID: '{iD}' not found in the list!");
-                    }
-                    else
-                    {
-                        MessageBox.Show($"Student with ID: '{iD}' has been deleted.");
-                    }
+                        if (dgv.Rows[i].Cells[0].Value.ToString() == iD)
+                        {
+                            dgv.Rows.RemoveAt(i);                   //remove
+                            MessageBox.Show("Delete Successful!");
+                            found = true;
+                            break;
+                        }
+                    } 
+                }
+                if (!found)
+                {
+                    MessageBox.Show($"Student with ID: '{iD}' not found in the list!");
                 }
             }
             catch
