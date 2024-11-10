@@ -90,7 +90,7 @@ namespace PRG282_Project
                     if (dgvStudents.Rows[i].Cells[0].Value.ToString() == txtID.Text)
                     {
                         dgvStudents.Rows.RemoveAt(i);
-                        dh.DeleteStudent(ID, students, fh);
+                        dh.DeleteStudent(txtID.Text, students, fh);
                         found = true;
                         break;
                     }

@@ -128,10 +128,40 @@ namespace PRG282_Project
             return null;
         }
 
-        public List<Student> DeleteStudent(int iD, List<Student> stdnList, FileHandler fileHandler)
+        public List<Student> DeleteStudent(string iD, List<Student> stdnList, FileHandler fileHandler)
         {
             //-----------IMPLEMENT-------------------
-            return new List<Student>();
+            try
+            {
+                int stdnID = int.Parse(iD);
+                bool found = false;
+
+
+                Student studentToDelete = stdnList.FirstOrDefault(stdn => stdn.ID1 == stdnID);
+
+                if (studentToDelete != null)
+                {
+                    stdnList.Remove(studentToDelete);
+                    fileHandler.Write(stdnList);
+
+
+
+                    if (!found)
+                    {
+                        MessageBox.Show($"Student with ID: '{iD}' not found in the list!");
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Student with ID: '{iD}' has been deleted.");
+                    }
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Please enter a valid ID for deletion.");
+            }
+
+            return stdnList;
         }
 
         public void DisplaySummary(List<Student> students, System.Windows.Forms.Label totalStudents, System.Windows.Forms.Label avgAge)
