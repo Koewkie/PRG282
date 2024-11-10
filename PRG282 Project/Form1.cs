@@ -80,30 +80,7 @@ namespace PRG282_Project
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            try
-            {
-                bool found = false;
-                int ID = int.Parse(txtID.Text);
-                
-                for (int i = 0; i < dgvStudents.Rows.Count - 1; i++)
-                {
-                    if (dgvStudents.Rows[i].Cells[0].Value.ToString() == txtID.Text)
-                    {
-                        dgvStudents.Rows.RemoveAt(i);
-                        dh.DeleteStudent(txtID.Text, students, fh);
-                        found = true;
-                        break;
-                    }
-                }
-                if (!found)
-                {
-                    MessageBox.Show($"Student with ID: '{txtID.Text}' not found!");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Please enter a valid student ID");
-            }
+            students = dh.DeleteStudent(txtID.Text, students, fh, dgvStudents);
         }
 
         private void btnSummary_Click(object sender, EventArgs e)
